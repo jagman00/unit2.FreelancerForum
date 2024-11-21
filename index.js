@@ -14,26 +14,32 @@ const initialFreelancers = [
     {name: "Bob", price: 50, occupation: "teacher"},
 ]
 
-function addRandomFreelancer(){
-    const freelancers = people[Math.floor(math.random() * people.length)];
-    freelancers.push(freelancers);
+function addRandomFreelancer() {
+    if(initialFreelancers.length >= 7){
+        console.log("Maximum number of freelancers reached!");
+        return;
+    }
+    const randomFreelancer = freelancers[Math.floor(Math.random() * freelancers.length)];
+    initialFreelancers.push(randomFreelancer);
 }
 
-function averagePriceUpdate(){
-    const total = initialFreelancers.reduce((sum, freelancers) => sum+freelancers.price, 0);
-    return (total/freelancers.length).toFixed(2);
+function averagePriceUpdate() {
+    const total = initialFreelancers.reduce((sum, freelancer) => sum + freelancer.price, 0);
+    return (total / initialFreelancers.length).toFixed(2);
 }
 
 function render(){
     const freelancerList = document.querySelector(`#freelancerList`);
     const averagePriceList = document.querySelector(`#averagePrice`);
-    const listings = freelancers.map((freelancers) =>{
-        const listings = document.createElement("div");
-        listings.classList.add("freelancerListing");
-        listings.innerHTML = `<p>Name: ${freelancers.name}<p>
-                              <p>Occupation: ${freelancers.occupation}
-                              <p>Starting Price: $${freelancers.price}`;
-        return listings;
+    const listings = initialFreelancers.map((freelancer) => {
+        const listing = document.createElement("div");
+        listing.classList.add("freelancerListing");
+        listing.innerHTML = `
+            <p>Name: ${freelancer.name}</p>
+            <p>Occupation: ${freelancer.occupation}</p>
+            <p>Starting Price: $${freelancer.price}</p>
+        `;
+        return listing;
     });
 
     freelancerList.replaceChildren(...listings);
